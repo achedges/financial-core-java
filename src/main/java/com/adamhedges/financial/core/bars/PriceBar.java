@@ -4,6 +4,7 @@ import com.adamhedges.utilities.datetime.DateUtilities;
 import lombok.Data;
 
 import java.time.Instant;
+import java.time.ZoneId;
 import java.util.Objects;
 
 @Data
@@ -62,10 +63,29 @@ public class PriceBar implements Comparable<PriceBar> {
         this.id = PriceBar.generateId(this.date, this.time);
     }
 
+    public PriceBar(String symbol, Instant timestamp, ZoneId tz) {
+        this.symbol = symbol;
+        this.date = DateUtilities.getInstantDate(timestamp, tz);
+        this.time = DateUtilities.getInstantTime(timestamp, tz);
+        this.id = PriceBar.generateId(this.date, this.time);
+    }
+
     public PriceBar(String symbol, double basisPrice, Instant timestamp) {
         this.symbol = symbol;
         this.date = DateUtilities.getInstantDate(timestamp, DateUtilities.EASTERN_TIMEZONE);
         this.time = DateUtilities.getInstantTime(timestamp, DateUtilities.EASTERN_TIMEZONE);
+        this.id = PriceBar.generateId(this.date, this.time);
+        this.open = basisPrice;
+        this.high = basisPrice;
+        this.low = basisPrice;
+        this.close = basisPrice;
+        this.vwap = basisPrice;
+    }
+
+    public PriceBar(String symbol, double basisPrice, Instant timestamp, ZoneId tz) {
+        this.symbol = symbol;
+        this.date = DateUtilities.getInstantDate(timestamp, tz);
+        this.time = DateUtilities.getInstantTime(timestamp, tz);
         this.id = PriceBar.generateId(this.date, this.time);
         this.open = basisPrice;
         this.high = basisPrice;
