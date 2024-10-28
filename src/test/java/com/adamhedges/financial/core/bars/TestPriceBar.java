@@ -43,6 +43,32 @@ public class TestPriceBar {
         PriceBar d = new PriceBar(s, timestamp.toInstant());
         Assertions.assertEquals(20231220L, d.getDate());
         Assertions.assertEquals(1200, d.getTime());
+
+        PriceBar e = new PriceBar(s, 20241010, 1200, 10.0);
+        Assertions.assertEquals(20241010L, e.getDate());
+        Assertions.assertEquals(1200, e.getTime());
+        Assertions.assertEquals(10.0, e.getOpen());
+        Assertions.assertEquals(10.0, e.getHigh());
+        Assertions.assertEquals(10.0, e.getLow());
+        Assertions.assertEquals(10.0, e.getClose());
+        Assertions.assertEquals(10.0, e.getVwap());
+
+        PriceBar f = new PriceBar(s, timestamp.toInstant(), DateUtilities.EASTERN_TIMEZONE);
+        Assertions.assertEquals(20231220L, f.getDate());
+        Assertions.assertEquals(1200, f.getTime());
+
+        PriceBar g = new PriceBar(s, 10.0, timestamp.toInstant());
+        Assertions.assertEquals(20231220, g.getDate());
+        Assertions.assertEquals(1200, g.getTime());
+        Assertions.assertEquals(10.0, g.getOpen());
+        Assertions.assertEquals(10.0, g.getHigh());
+        Assertions.assertEquals(10.0, g.getLow());
+        Assertions.assertEquals(10.0, g.getClose());
+        Assertions.assertEquals(10.0, g.getVwap());
+
+        PriceBar h = new PriceBar(s, 10.0, timestamp.toInstant(), DateUtilities.EASTERN_TIMEZONE);
+        Assertions.assertEquals(20231220L, h.getDate());
+        Assertions.assertEquals(1200, h.getTime());
     }
 
     @Test
@@ -117,6 +143,27 @@ public class TestPriceBar {
         b.setClose(9);
         Assertions.assertTrue(b.isDown());
         Assertions.assertFalse(b.isUp());
+    }
+
+    @Test
+    public void TestPriceBar_aggregate() {
+        PriceBar b = new PriceBar("TEST", 10.0);
+        b.setVolume(100);
+        b.setVwap(10.0);
+
+        b.aggregate(11.0, 11.0, 11.0, 100, 11.0);
+        Assertions.assertEquals(11.0, b.getHigh());
+        Assertions.assertEquals(10.0, b.getLow());
+        Assertions.assertEquals(11.0, b.getClose());
+        Assertions.assertEquals(200, b.getVolume());
+        Assertions.assertEquals(10.5, b.getVwap());
+
+        b.aggregate(9.0, 9.0, 9.0, 100, 9.0);
+        Assertions.assertEquals(11.0, b.getHigh());
+        Assertions.assertEquals(9.0, b.getLow());
+        Assertions.assertEquals(9.0, b.getClose());
+        Assertions.assertEquals(300, b.getVolume());
+        Assertions.assertEquals(10.0, b.getVwap());
     }
 
 }

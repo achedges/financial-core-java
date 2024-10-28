@@ -161,6 +161,19 @@ public class PriceBar implements Comparable<PriceBar> {
         this.volume = other.volume;
     }
 
+    public void aggregate(double high, double low, double close, long volume, double vwap) {
+        this.high = Math.max(this.high, high);
+        this.low = Math.min(this.low, low);
+        this.close = close;
+
+        long totalVolume = this.volume + volume;
+        double currentTotal = this.vwap * this.volume;
+        double updateTotal = vwap * volume;
+
+        this.volume = totalVolume;
+        this.vwap = (currentTotal + updateTotal) / totalVolume;
+    }
+
     @Override
     public String toString() {
         return String.format("%d %4s O=%,.2f H=%,.2f L=%,.2f C=%,.2f V=%d VWAP=%,.2f", date, time, open, high, low, close, volume, vwap);
