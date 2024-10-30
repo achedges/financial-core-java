@@ -171,7 +171,9 @@ public class PriceBar implements Comparable<PriceBar> {
         double updateTotal = vwap * volume;
 
         this.volume = totalVolume;
-        this.vwap = (currentTotal + updateTotal) / totalVolume;
+        if (totalVolume > 0) {
+            this.vwap = (currentTotal + updateTotal) / totalVolume;
+        }
     }
 
     @Override
