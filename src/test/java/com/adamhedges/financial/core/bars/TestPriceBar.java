@@ -166,4 +166,12 @@ public class TestPriceBar {
         Assertions.assertEquals(10.0, b.getVwap());
     }
 
+    @Test
+    public void TestPriceBar_toString() {
+        PriceBar bar = new PriceBar("TEST", 20250801, 1200, 10.12345);
+        Assertions.assertEquals("20250801 1200 O=10.12 H=10.12 L=10.12 C=10.12 V=0 VWAP=10.12", bar.toString());
+        Assertions.assertEquals("20250801 1200 O=10.12 H=10.12 L=10.12 C=10.12 V=0 VWAP=10.12", bar.toString(2));
+        Assertions.assertEquals("20250801 1200 O=10.12345 H=10.12345 L=10.12345 C=10.12345 V=0 VWAP=10.12345", bar.toString(5));
+    }
+
 }

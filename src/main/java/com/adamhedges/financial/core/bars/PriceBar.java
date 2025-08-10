@@ -178,7 +178,13 @@ public class PriceBar implements Comparable<PriceBar> {
 
     @Override
     public String toString() {
-        return String.format("%d %4s O=%,.2f H=%,.2f L=%,.2f C=%,.2f V=%d VWAP=%,.2f", date, time, open, high, low, close, volume, vwap);
+        return toString(2);
+    }
+
+    public String toString(int decimalPlaces) {
+        String doubleFormat = String.format("%%,.%sf", decimalPlaces);
+        String outputFormat = String.format("%%d %%4s O=%1$s H=%1$s L=%1$s C=%1$s V=%%d VWAP=%1$s", doubleFormat);
+        return String.format(outputFormat, date, time, open, high, low, close, volume, vwap);
     }
 
 }
