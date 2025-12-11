@@ -114,6 +114,14 @@ public class PriceBar implements Comparable<PriceBar> {
         return close < open;
     }
 
+    public int getHour() {
+        return this.getTime() / 100;
+    }
+
+    public int getMinute() {
+        return this.getTime() % 100;
+    }
+
     @Override
     public int compareTo(PriceBar other) {
         return Long.compare(this.id, other.id);

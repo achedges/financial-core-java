@@ -174,4 +174,11 @@ public class TestPriceBar {
         Assertions.assertEquals("20250801 1200 O=10.12345 H=10.12345 L=10.12345 C=10.12345 V=0 VWAP=10.12345", bar.toString(5));
     }
 
+    @Test
+    public void TestPriceBar_getHour_getMinute() {
+        PriceBar bar = new PriceBar("test", 20251201, 827);
+        Assertions.assertEquals(8, bar.getHour());
+        Assertions.assertEquals(27, bar.getMinute());
+    }
+
 }
