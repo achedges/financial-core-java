@@ -122,6 +122,22 @@ public class PriceBar implements Comparable<PriceBar> {
         return this.getTime() % 100;
     }
 
+    public double getRange() {
+        return high - low;
+    }
+
+    public double getBody() {
+        return Math.abs(close - open);
+    }
+
+    public double getHighWick() {
+        return high - Math.max(open, close);
+    }
+
+    public double getLowWick() {
+        return Math.min(open, close) - low;
+    }
+
     @Override
     public int compareTo(PriceBar other) {
         return Long.compare(this.id, other.id);

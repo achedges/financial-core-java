@@ -181,4 +181,18 @@ public class TestPriceBar {
         Assertions.assertEquals(27, bar.getMinute());
     }
 
+    @Test
+    public void TestPriceBar_getRange() {
+        PriceBar bar = new PriceBar("TEST", 0, 0);
+        bar.setOpen(10);
+        bar.setHigh(13);
+        bar.setLow(7);
+        bar.setClose(9);
+
+        Assertions.assertEquals(6, bar.getRange());
+        Assertions.assertEquals(1, bar.getBody());
+        Assertions.assertEquals(3, bar.getHighWick());
+        Assertions.assertEquals(2, bar.getLowWick());
+    }
+
 }
