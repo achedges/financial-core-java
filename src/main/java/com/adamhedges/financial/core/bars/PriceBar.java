@@ -107,11 +107,19 @@ public class PriceBar implements Comparable<PriceBar> {
     }
 
     public boolean isUp() {
-        return close > open;
+        return isUp(0.0);
+    }
+
+    public boolean isUp(double threshold) {
+        return close > (open + threshold);
     }
 
     public boolean isDown() {
-        return close < open;
+        return isDown(0.0);
+    }
+
+    public boolean isDown(double threshold) {
+        return close < (open - threshold);
     }
 
     public int getHour() {

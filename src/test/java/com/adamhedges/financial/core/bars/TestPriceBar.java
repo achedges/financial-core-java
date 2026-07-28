@@ -138,11 +138,19 @@ public class TestPriceBar {
         b.setOpen(10);
         b.setClose(11);
         Assertions.assertTrue(b.isUp());
+        Assertions.assertTrue(b.isUp(0.9));
+        Assertions.assertFalse(b.isUp(1.1));
         Assertions.assertFalse(b.isDown());
+        Assertions.assertFalse(b.isDown(0.9));
+        Assertions.assertFalse(b.isDown(1.1));
 
         b.setClose(9);
         Assertions.assertTrue(b.isDown());
+        Assertions.assertTrue(b.isDown(0.9));
+        Assertions.assertFalse(b.isDown(1.1));
         Assertions.assertFalse(b.isUp());
+        Assertions.assertFalse(b.isUp(0.9));
+        Assertions.assertFalse(b.isUp(1.1));
     }
 
     @Test
